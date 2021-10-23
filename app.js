@@ -130,7 +130,7 @@ function getLink(newName){
       else{
         document.getElementById('downlink').innerHTML = "N/A";
     }
-    
+    }
   });
     }
   };
