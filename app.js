@@ -30,6 +30,7 @@ function getMovieDetails(movie){
   clear();
 
   movieName = movie.replaceAll(' ','+');
+  console.log(movieName);
   var detURL = `https://www.omdbapi.com/?t=${movieName}&apikey=${api_key2}`;
   fetch(detURL)
   .then(response => response.json())
@@ -62,6 +63,7 @@ document.getElementById('search-icon').addEventListener('click',()=>{
   var mName = document.getElementById('movie-search').value;
   document.getElementById('refreshBtn').style.display="none";
 
+  console.log(mName);
   getMovieDetails(mName);
   
 })
@@ -134,12 +136,12 @@ function getLink(nName){
     
   });
   
-  xhr.send();
 }
 else{
   console.log("error");
 }
-  }
+}
+xhr.send();
 }
 
  
