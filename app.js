@@ -144,4 +144,6 @@ else{
 xhr.send();
 }
 
- 
+ document.getElementById('movie-search').addEventListener('click',()=>{
+   document.getElementById('details').style.visibility = "hidden";
+ });
