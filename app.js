@@ -125,20 +125,18 @@ function getLink(newName){
       if(linkArray[i]["quality"] == "720p"){
         document.getElementById('downlink').innerHTML = "Download here";
         document.getElementById('downlink').setAttribute("href",linkArray[i]["url"]);
-
+        break;
       }
       else{
         document.getElementById('downlink').innerHTML = "N/A";
     }
     }
-    }
+    
+    xhr.send();
   });
     
-  };
-  xhr.onerror = function(){
-    console.log(xhr.status,xhr.statusText);
+}
   }
-  xhr.send();
 }
 
  
