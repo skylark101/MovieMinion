@@ -96,13 +96,13 @@ function randomizer(){
 
 // --------------------- THE TORRENT DOWNLOAD LINK --------------------
 
-function getLink(newName){
+function getLink(nName){
 
   
   /* ----------SCRAPING THE MOVIE ID FROM YTS.MX PAGE-----------------*/
 
   var xhr = new XMLHttpRequest();
-  var URL = `https://yts.mx/movies/${newName}`;
+  var URL = `https://yts.mx/movies/${nName}`;
   var url = URL.toLowerCase();
   console.log(url);
   xhr.open("GET",url,true);
@@ -132,9 +132,12 @@ function getLink(newName){
     }
     }
     
-    xhr.send();
   });
-    
+  
+  xhr.send();
+}
+else{
+  console.log("error");
 }
   }
 }
