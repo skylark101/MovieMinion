@@ -131,8 +131,9 @@ function getLink(newName){
         document.getElementById('downlink').innerHTML = "N/A";
     }
     }
-  });
     }
+  });
+    
   };
   xhr.onerror = function(){
     console.log(xhr.status,xhr.statusText);
