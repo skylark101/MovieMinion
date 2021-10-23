@@ -127,8 +127,7 @@ body {
   background-color: #fff;
   position: absolute;
   bottom: 0%;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  border-radius: 3%;
   display: flex;
   padding: 2%;
   left: 50%;
@@ -268,5 +267,11 @@ body {
   #info{
   line-height: 2rem;
   }
- 
+ #mname,#mimdb,#myear{
+   font-size: 2rem;
+
+ }
+ #movie-poster{
+   height: 300px !important;
+ }
 }
