@@ -127,6 +127,8 @@ function getLink(newName){
         document.getElementById('downlink').setAttribute("href",linkArray[i]["url"]);
 
       }
+      else{
+        document.getElementById('downlink').innerHTML = "N/A";
     }
     
   });
