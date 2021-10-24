@@ -131,7 +131,7 @@ body {
   display: flex;
   padding: 2%;
   left: 50%;
-  /* visibility: hidden; */
+   visibility: hidden; 
   transform: translate(-50%, 0);
 }
 
