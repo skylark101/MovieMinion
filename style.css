@@ -271,5 +271,7 @@ body {
  #movie-poster{
    height: 300px !important;
  }
+  .searchRef{
+    width:40px;
 }
 
