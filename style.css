@@ -131,7 +131,7 @@ body {
   display: flex;
   padding: 2%;
   left: 50%;
-  visibility: hidden;
+  /* visibility: hidden; */
   transform: translate(-50%, 0);
 }
 
@@ -164,25 +164,22 @@ body {
   cursor: pointer;
 }
 
-.fa-refresh {
-  color: black;
-  cursor: pointer;
-}
+
 #refreshBtn {
   text-align: center;
   display: none;
 }
-
-.searchRef {
-  font-size: 2rem;
+.searchRef{
   width: 50px;
-  cursor: pointer;
+  background: #fff;
   outline: none;
-  background: white;
-  border-radius: 50%;
+  border: none;
 }
-.searchRef:hover {
-  box-shadow: 2px 2px rgba(0, 0, 0, 0.5);
+.searchRef img{
+  width: 100%;
+}
+.searchRef img:hover{
+  cursor: pointer;
 }
 
 /*MEDIA QUERIES*/
@@ -275,3 +272,4 @@ body {
    height: 300px !important;
  }
 }
+
