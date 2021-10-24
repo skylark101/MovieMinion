@@ -42,7 +42,7 @@ function getMovieDetails(movie){
     document.getElementById('movie-poster').setAttribute('src',data["Poster"]);
 
     movieName = data["Title"]+ '-' + data["Year"];
-    var nwName = movieName.replaceAll('+','-').replaceAll(': ',' ').replaceAll(' :',' ').replaceAll(':',' ').replaceAll('---','-').replaceAll('--','-').replaceAll('----','-').replaceAll('!',' ').replaceAll('?',' ').replaceAll("'",'').replaceAll(".",'').replaceAll(',',' ').replaceAll(' ','-');
+    var nwName = movieName.replaceAll('+','-').replaceAll(': ',' ').replaceAll(' :',' ').replaceAll(':',' ').replaceAll('!',' ').replaceAll('?',' ').replaceAll("'",'').replaceAll(".",'').replaceAll(',',' ').replaceAll(' ','-').replaceAll('---','-').replaceAll('--','-').replaceAll('----','-');
     newName = nwName.trim();
     console.log(newName);
     getLink(newName);
