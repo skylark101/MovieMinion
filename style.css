@@ -259,7 +259,7 @@ body {
   #details{
     font-size: 2rem;
     padding:5%;
-    bottom: 25%;
+    bottom: 20% !important;
   }
   #info{
   line-height: 2rem;
@@ -272,6 +272,6 @@ body {
    height: 300px !important;
  }
   .searchRef{
-    width:40px;
+    width:40px !important;
 }
 
