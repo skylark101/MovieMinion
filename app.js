@@ -40,11 +40,12 @@ function getMovieDetails(movie){
     document.getElementById('myear').innerHTML = data["Year"];
     document.getElementById('mimdb').innerHTML = data["imdbRating"];
     document.getElementById('movie-poster').setAttribute('src',data["Poster"]);
-
+    imdbID = data["imdbID"];
     movieName = data["Title"]+ '-' + data["Year"];
     var nwName = movieName.replaceAll('+','-').replaceAll(': ',' ').replaceAll(' :',' ').replaceAll(':',' ').replaceAll('!',' ').replaceAll('?',' ').replaceAll("'",'').replaceAll(".",'').replaceAll(',',' ').replaceAll(' ','-').replaceAll('---','-').replaceAll('--','-').replaceAll('----','-');
     newName = nwName.trim();
     console.log(newName);
+    getSubs();
     getLink(newName);
   });
  
@@ -147,3 +148,60 @@ xhr.send();
  document.getElementById('movie-search').addEventListener('click',()=>{
    document.getElementById('details').style.visibility = "hidden";
  });
+
+
+
+
+/*********SUBTITLES SEARCH*********/
+
+function downloadSubs(URL,count){
+
+  var xhr = new XMLHttpRequest();
+  var url = URL.toLowerCase();
+  console.log(url);
+  xhr.open("GET",url,true);
+  xhr.responseType = "document";
+  xhr.onload = function(){
+    if(xhr.readyState == 4 && xhr.status == 200){
+      var link = xhr.responseXML.getElementsByClassName('btn-icon download-subtitle').getAttribute('href');
+      var id = 'sub-link'+count;
+      document.getElementById(id).setAttribute('href',link);
+    }
+    else{
+      console.log("error");
+    }
+    }
+    xhr.send();
+}
+
+
+
+function getSubs(){
+var xhr = new XMLHttpRequest();
+  var URL = `https://yts-subs.com/movie-imdb/${imdbID}`;
+  var url = URL.toLowerCase();
+  console.log(url);
+  xhr.open("GET",url,true);
+  xhr.responseType = "document";
+  xhr.onload = function(){
+    if(xhr.readyState == 4 && xhr.status == 200){
+      var engArray = xhr.responseXML.getElementsByClassName("sub-lang");
+      var index = 0;
+      for (var i = 0 ; i<engArray.length;i++){
+        if (engArray[i].innerText == 'English'){
+             index = i;
+        break;
+      }
+        }
+        var newArray = xhr.responseXML.getElementsByClassName("subtitle-download");
+        for(var j=i;j<i+5;j++){
+          downloadSubs(newArray[j].getAttribute('href'),j-i+1);
+        }
+    }
+    else{
+      console.log("error");
+    }
+    }
+    xhr.send();
+
+  }
