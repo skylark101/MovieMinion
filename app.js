@@ -45,7 +45,7 @@ function getMovieDetails(movie){
     var nwName = movieName.replaceAll('+','-').replaceAll(': ',' ').replaceAll(' :',' ').replaceAll(':',' ').replaceAll('!',' ').replaceAll('?',' ').replaceAll("'",'').replaceAll(".",'').replaceAll(',',' ').replaceAll(' ','-').replaceAll('---','-').replaceAll('--','-').replaceAll('----','-');
     newName = nwName.trim();
     console.log(newName);
-    getSubs();
+
     getLink(newName);
   });
  
@@ -152,7 +152,7 @@ xhr.send();
 
 
 
-/*********SUBTITLES SEARCH*********/
+/*********SUBTITLES SEARCH********
 
 function downloadSubs(URL,count){
 
@@ -204,4 +204,4 @@ var xhr = new XMLHttpRequest();
     }
     xhr.send();
 
-  }
+  }*/
