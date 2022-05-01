@@ -125,7 +125,7 @@ function getLink(nName){
 
     var linkArray = data["data"]["movie"]["torrents"];
     for(var i = 0; i<linkArray.length;i++){
-      if(linkArray[i]["quality"] == "720p"){
+      if(linkArray[i]["quality"] == "1080p"){
         document.getElementById('downlink').innerHTML = "Download here";
         document.getElementById('downlink').setAttribute("href",linkArray[i]["url"]);
         break;
@@ -152,56 +152,3 @@ xhr.send();
 
 
 
-/*********SUBTITLES SEARCH********
-
-function downloadSubs(URL,count){
-
-  var xhr = new XMLHttpRequest();
-  var url = URL.toLowerCase();
-  console.log(url);
-  xhr.open("GET",url,true);
-  xhr.responseType = "document";
-  xhr.onload = function(){
-    if(xhr.readyState == 4 && xhr.status == 200){
-      var link = xhr.responseXML.getElementsByClassName('btn-icon download-subtitle').getAttribute('href');
-      var id = 'sub-link'+count;
-      document.getElementById(id).setAttribute('href',link);
-    }
-    else{
-      console.log("error");
-    }
-    }
-    xhr.send();
-}
-
-
-
-function getSubs(){
-var xhr = new XMLHttpRequest();
-  var URL = `https://yts-subs.com/movie-imdb/${imdbID}`;
-  var url = URL.toLowerCase();
-  console.log(url);
-  xhr.open("GET",url,true);
-  xhr.responseType = "document";
-  xhr.onload = function(){
-    if(xhr.readyState == 4 && xhr.status == 200){
-      var engArray = xhr.responseXML.getElementsByClassName("sub-lang");
-      var index = 0;
-      for (var i = 0 ; i<engArray.length;i++){
-        if (engArray[i].innerText == 'English'){
-             index = i;
-        break;
-      }
-        }
-        var newArray = xhr.responseXML.getElementsByClassName("subtitle-download");
-        for(var j=i;j<i+5;j++){
-          downloadSubs(newArray[j].getAttribute('href'),j-i+1);
-        }
-    }
-    else{
-      console.log("error");
-    }
-    }
-    xhr.send();
-
-  }*/
