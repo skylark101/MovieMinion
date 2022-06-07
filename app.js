@@ -96,7 +96,7 @@ function randomizer(genId, maxPages) {
   if (genId != "") {
     var randomPage = Math.floor((Math.random() * maxPages) + 1);
     var genUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&page=${randomPage}&language=en-US&sort_by=popularity.desc&include_adult=false&vote_average.gte=5.0&with_genres=${genId}&include_video=false`;
-    console.log(genUrl);
+    // console.log(genUrl);
     fetch(genUrl)
       .then(response => response.json())
       .then(dataGen => {
