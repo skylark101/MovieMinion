@@ -82,7 +82,7 @@ function randomizer(){
 
   var genId = document.getElementById('genre').value;
   if (genId != ""){
-    var genUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en-US&sort_by=popularity.desc&include_adult=false&with_genres=${genId}&include_video=false&page=1&with_watch_monetization_types=flatrate`;
+    var genUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en-US&sort_by=popularity.desc&include_adult=false&vote_average.gte=5.0&with_genres=${genId}&include_video=false&page=1&with_watch_monetization_types=flatrate`;
     fetch(genUrl)
   .then(response => response.json())
   .then(dataGen=>{
