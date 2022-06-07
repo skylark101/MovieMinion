@@ -1,6 +1,6 @@
 
 
-function clear(){
+function clear() {
   document.getElementById('mname').innerHTML = "";
   document.getElementById('myear').innerHTML = "";
   document.getElementById('mimdb').innerHTML = "";
@@ -26,48 +26,63 @@ var movieName = "";
 var newName = "";
 var year;
 var imdbID;
-function getMovieDetails(movie){
+function getMovieDetails(movie) {
   clear();
 
-  movieName = movie.replaceAll(' ','+');
-  console.log(movieName);
+  movieName = movie.replaceAll(' ', '+');
+  // console.log(movieName);
   var detURL = `https://www.omdbapi.com/?t=${movieName}&apikey=${api_key2}`;
   fetch(detURL)
-  .then(response => response.json())
-  .then(data=>{
+    .then(response => response.json())
+    .then(data => {
 
-    document.getElementById('mname').innerHTML = data["Title"];
-    document.getElementById('myear').innerHTML = data["Year"];
-    document.getElementById('mimdb').innerHTML = data["imdbRating"];
-    document.getElementById('movie-poster').setAttribute('src',data["Poster"]);
-    imdbID = data["imdbID"];
-    movieName = data["Title"]+ '-' + data["Year"];
-    var nwName = movieName.replaceAll('+','-').replaceAll(': ',' ').replaceAll(' :',' ').replaceAll(':',' ').replaceAll('!',' ').replaceAll('?',' ').replaceAll("'",'').replaceAll(".",'').replaceAll(',',' ').replaceAll(' ','-').replaceAll('---','-').replaceAll('--','-').replaceAll('----','-');
-    newName = nwName.trim();
-    console.log(newName);
+      document.getElementById('mname').innerHTML = data["Title"];
+      document.getElementById('myear').innerHTML = data["Year"];
+      document.getElementById('mimdb').innerHTML = data["imdbRating"];
+      document.getElementById('movie-poster').setAttribute('src', data["Poster"]);
+      imdbID = data["imdbID"];
+      movieName = data["Title"] + '-' + data["Year"];
+      var nwName = movieName.replaceAll('+', '-').replaceAll(': ', ' ').replaceAll(' :', ' ').replaceAll(':', ' ').replaceAll('!', ' ').replaceAll('?', ' ').replaceAll("'", '').replaceAll(".", '').replaceAll(',', ' ').replaceAll(' ', '-').replaceAll('---', '-').replaceAll('--', '-').replaceAll('----', '-');
+      newName = nwName.trim();
+      // console.log(newName);
 
-    getLink(newName);
-  });
- 
+      getLink(newName);
+    });
 
 
-   
-    document.getElementById('details').style.visibility = "visible";
- 
+
+
+  document.getElementById('details').style.visibility = "visible";
+
 }
 
 // ---------------------MOVIE SEARCH WORKING-------------------------
 
 
-document.getElementById('search-icon').addEventListener('click',()=>{
+document.getElementById('search-icon').addEventListener('click', () => {
 
   var mName = document.getElementById('movie-search').value;
-  document.getElementById('refreshBtn').style.display="none";
+  document.getElementById('refreshBtn').style.display = "none";
 
-  console.log(mName);
+  // console.log(mName);
   getMovieDetails(mName);
-  
+
 })
+
+
+// ---------------DRIVER FUNCTION FOR THE RANDOMIZER-------------------
+
+function callRandom() {
+  var genId = document.getElementById('genre').value;
+  var genUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en-US&sort_by=popularity.desc&include_adult=false&vote_average.gte=5.0&with_genres=${genId}&include_video=false&page=1&with_watch_monetization_types=flatrate`;
+  fetch(genUrl)
+    .then(response => response.json())
+    .then(dataGen => {
+      var maxPages = 10 < dataGen["total_pages"] ? 10 : dataGen["total_pages"];
+      randomizer(genId, maxPages);
+    });
+
+}
 
 
 
@@ -76,22 +91,21 @@ document.getElementById('search-icon').addEventListener('click',()=>{
 
 
 
-document.getElementById('btn-search').addEventListener('click',randomizer);
+function randomizer(genId, maxPages) {
 
-function randomizer(){
-
-  var genId = document.getElementById('genre').value;
-  if (genId != ""){
-    var genUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&language=en-US&sort_by=popularity.desc&include_adult=false&vote_average.gte=5.0&with_genres=${genId}&include_video=false&page=1&with_watch_monetization_types=flatrate`;
+  if (genId != "") {
+    var randomPage = Math.floor((Math.random() * maxPages) + 1);
+    var genUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${api_key}&page=${randomPage}&language=en-US&sort_by=popularity.desc&include_adult=false&vote_average.gte=5.0&with_genres=${genId}&include_video=false`;
+    console.log(genUrl);
     fetch(genUrl)
-  .then(response => response.json())
-  .then(dataGen=>{
+      .then(response => response.json())
+      .then(dataGen => {
 
-    var randomNum = Math.floor((Math.random() * dataGen["results"].length) + 1);
-    var movName = dataGen["results"][randomNum]["title"];
-    document.getElementById('refreshBtn').style.display="block";
-    getMovieDetails(movName);
-  });
+        var randomNum = Math.floor((Math.random() * dataGen["results"].length) + 1);
+        var movName = dataGen["results"][randomNum]["title"];
+        document.getElementById('refreshBtn').style.display = "block";
+        getMovieDetails(movName);
+      });
   }
 }
 
@@ -99,56 +113,55 @@ function randomizer(){
 
 // --------------------- THE TORRENT DOWNLOAD LINK --------------------
 
-function getLink(nName){
+function getLink(nName) {
 
-  
+
   /* ----------SCRAPING THE MOVIE ID FROM YTS.MX PAGE-----------------*/
 
   var xhr = new XMLHttpRequest();
   var URL = `https://yts.mx/movies/${nName}`;
   var url = URL.toLowerCase();
   console.log(url);
-  xhr.open("GET",url,true);
+  xhr.open("GET", url, true);
   xhr.responseType = "document";
-  xhr.onload = function(){
-    if(xhr.readyState == 4 && xhr.status == 200){
+  xhr.onload = function () {
+    if (xhr.readyState == 4 && xhr.status == 200) {
       var torrentID = xhr.responseXML.getElementById('movie-info').getAttribute("data-movie-id");
-      console.log(torrentID);
+      // console.log(torrentID);
 
 
       /*--------------------GETTING THE TORRENT DOWNLOAD LINK FROM YTS.MX API------------*/
-      var linkURL =  `https://yts.mx/api/v2/movie_details.json?movie_id=${torrentID}`;
-     
+      var linkURL = `https://yts.mx/api/v2/movie_details.json?movie_id=${torrentID}`;
+
       fetch(linkURL)
-  .then(response => response.json())
-  .then(data=>{
+        .then(response => response.json())
+        .then(data => {
 
-    var linkArray = data["data"]["movie"]["torrents"];
-    for(var i = 0; i<linkArray.length;i++){
-      if(linkArray[i]["quality"] == "1080p"){
-        document.getElementById('downlink').innerHTML = "Download here";
-        document.getElementById('downlink').setAttribute("href",linkArray[i]["url"]);
-        break;
-      }
-      else{
-        document.getElementById('downlink').innerHTML = "N/A";
+          var linkArray = data["data"]["movie"]["torrents"];
+          for (var i = 0; i < linkArray.length; i++) {
+            if (linkArray[i]["quality"] == "1080p") {
+              document.getElementById('downlink').innerHTML = "Download here";
+              document.getElementById('downlink').setAttribute("href", linkArray[i]["url"]);
+              break;
+            }
+            else {
+              document.getElementById('downlink').innerHTML = "N/A";
+            }
+          }
+
+        });
+
     }
+    else {
+      console.log("error");
     }
-    
-  });
-  
-}
-else{
-  console.log("error");
-}
-}
-xhr.send();
+  }
+  xhr.send();
 }
 
- document.getElementById('movie-search').addEventListener('click',()=>{
-   document.getElementById('details').style.visibility = "hidden";
- });
-
+document.getElementById('movie-search').addEventListener('click', () => {
+  document.getElementById('details').style.visibility = "hidden";
+});
 
 
 
