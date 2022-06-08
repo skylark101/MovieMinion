@@ -121,7 +121,7 @@ function getLink(nName) {
   var xhr = new XMLHttpRequest();
   var URL = `https://yts.mx/movies/${nName}`;
   var url = URL.toLowerCase();
-  console.log(url);
+  // console.log(url);
   xhr.open("GET", url, true);
   xhr.responseType = "document";
   xhr.onload = function () {
