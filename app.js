@@ -19,6 +19,9 @@ const api_key2 = "4a14d1f0";
 /*https://yts.mx/api*/
 
 
+/*opensubtitles-api*/
+const sub_key = "W24rSqo88leLZlpua3NoWO3vIRjL753p";
+
 //-----------------------FUNCTION TO GET MOVIE DETAILS-------------------------
 
 
@@ -43,10 +46,11 @@ function getMovieDetails(movie) {
       imdbID = data["imdbID"];
       movieName = data["Title"] + '-' + data["Year"];
       var nwName = movieName.replaceAll('+', '-').replaceAll(': ', ' ').replaceAll(' :', ' ').replaceAll(':', ' ').replaceAll('!', ' ').replaceAll('?', ' ').replaceAll("'", '').replaceAll(".", '').replaceAll(',', ' ').replaceAll(' ', '-').replaceAll('---', '-').replaceAll('--', '-').replaceAll('----', '-');
+
       newName = nwName.trim();
-      // console.log(newName);
 
       getLink(newName);
+      getSubsId(imdbID.slice(2,imdbID.length));
     });
 
 
@@ -165,3 +169,50 @@ document.getElementById('movie-search').addEventListener('click', () => {
 
 
 
+
+
+
+// -----------------------SUBTITLES SCRAPING---------------------------
+
+function getSubsId(imdbID) {
+
+  var url = `https://api.opensubtitles.com/api/v1/subtitles?imdb_id=${imdbID}`;
+  const settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": url,
+    "method": "GET",
+    "headers": {
+      "Content-Type": "application/json",
+      "Api-Key": "W24rSqo88leLZlpua3NoWO3vIRjL753p"
+    }
+  };
+  
+  $.ajax(settings).done(function (response) {
+    var file_id = response.data[0].attributes.files[0].file_id;
+    downloadSub(file_id);
+  });
+
+
+}
+
+
+async function downloadSub(file_id){
+  const settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://api.opensubtitles.com/api/v1/download",
+    "method": "POST",
+    "headers": {
+      "Content-Type": "application/json",
+      "Api-Key": "W24rSqo88leLZlpua3NoWO3vIRjL753p"
+    },
+    "processData": false,
+    "data": `{\n  \"file_id\": ${file_id}\n}`
+  };
+  
+  $.ajax(settings).done(function (response) {
+    var sub_link = response["link"];
+    document.getElementById("sub-link").setAttribute('href',sub_link);
+  });
+}
