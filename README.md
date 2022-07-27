@@ -9,7 +9,7 @@ What makes it different from the existing projects like this is the special feat
 Works on 4 APIs, namely: <br>
 https://developers.themoviedb.org/ <br>
 https://www.omdbapi.com/ <br>
-https://yts.mx/api <br> <br>
-https://opensubtitles.stoplight.io/
+https://yts.mx/api <br> 
+https://opensubtitles.stoplight.io/ <br>
 
 Also, makes use of javascript based <b>WEB SCRAPING</b> to fetch certain relevant details.
