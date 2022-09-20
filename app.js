@@ -6,6 +6,8 @@ function clear() {
   document.getElementById('mimdb').innerHTML = "";
   document.getElementById('movie-poster').innerHTML = "";
   document.getElementById('downlink').innerHTML = "";
+  document.getElementById("sub-link").innerHTML = "";
+
 }
 /*-----------APIs USED-------------*/
 
@@ -213,6 +215,9 @@ async function downloadSub(file_id){
   
   $.ajax(settings).done(function (response) {
     var sub_link = response["link"];
-    document.getElementById("sub-link").setAttribute('href',sub_link);
+    setTimeout(function(){
+      document.getElementById("sub-link").setAttribute('href',sub_link);
+      document.getElementById("sub-link").innerHTML = "Download SRT";
+    }, 2000);
   });
 }
